@@ -1,54 +1,29 @@
 <!DOCTYPE html>
-<html lang="es-419">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
-        <meta name="description" content="Localización para usuario de QuiDaR" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="web_author" content="Comunidad QuiDaR" />
-        <title>Localización ususario en Riesgo QuiDaR</title>
-        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        <script>
-        $(document).ready(function(){
-            $('#ubicame').click(iniciar_geolocalizacion);
-        });
+<html>
+<body>
 
-        function iniciar_geolocalizacion() {
-            navigator.geolocation.getCurrentPosition(geo_consulta, manejo_errores);
-        }
+<p>Click the button to get your coordinates.</p>
 
-        function manejo_errores(error) {
-            switch(error.code) {
-                case error.PERMISSION_DENIED: alert("El usurio no compartió su ubicación geográfica");
-                break;
-                case error.POSITION_UNAVAILABLE: alert("No se pudo detectar la posición geográfica actual");
-                break;
-                case error.TIMEOUT: alert("Se ha agotado el tiempo de espera al consultar posición geográfica");
-                break;
-                default: alert("Error desconocido");
-                break;
-            }
-        }
+<button onclick="getLocation()">Try It</button>
 
-        function geo_consulta(posicion) {
-            var img_url = 'http://maps.google.com/maps/api/staticmap?sensor=false&center=' + posicion.coords.latitude + "," + posicion.coords.longitude + '&zoom=14&size=600x500&markers=color:blue|label:s|' + posicion.coords.latitude + ',' + posicion.coords.longitude;
-            $('#mapa').attr('src', img_url);
-        } 
+<p id="demo"></p>
 
-        </script>
+<script>
+var x = document.getElementById("demo");
 
-        <style type="text/css">
-        button {
-            width: 200px;
-            height: 50px;
-            display: block;
-        }
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else { 
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
 
-        </style>
-    </head>
-    <body>
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude + 
+    "<br>Longitude: " + position.coords.longitude;	
+}
+</script>
 
-        <button id="ubicame">Ubicación GeoQuiDaR</button>
-        <img id="mapa" />
-    </body>
+</body>
 </html>
