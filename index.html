@@ -64,7 +64,12 @@
         zoom: 17,
         center: gLatLon
                                                                                  }
-        var gMapa = new google.maps.Map(divMapa, objConfig)                                                                         
+        var gMapa = new google.maps.Map(divMapa, objConfig)
+        var objConfigMArker = {
+            position: gLatLon,
+            map: gMapa,
+            title: "Usted está acá"
+        var gMarker = new google.maps.Marker(objConfigMarker);
                                                                                  
     }
  </body>
