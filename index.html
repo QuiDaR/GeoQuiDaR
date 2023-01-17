@@ -14,11 +14,11 @@
             posElt = document.getElementById('Pos');
             PosLinkElt = document.querySelector('#PosLink > a');
 
-           // if (navigator.geolocation) {
+            if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(geoposOK,geoposKO);
-           // }
-           // else{
-           // }
+            }
+            else{
+            }
         });
 
         /** @param (GeolocationPosition} pos */
