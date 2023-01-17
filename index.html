@@ -42,6 +42,22 @@
 
 
     </script>
+    <script type="text/javascript" src=http://maps.googleapis.com/maps/api/js?v3"></script>
+     //NAMESPACE --> google.maps.ALGO
+   var divMapa = document.getElementById('mapa');
+   navigator.geolocation.getCurrentPosition ( fn_ok, fn_mal);
+    funtion fn_mal (){}
+    funtion fn_ok (rta) {
+        var lat= rta.coords.latitude;
+        var lon= rta.coords.longitude;
 
+        var glatLon = new google.maps.LatLng(lat, lon);
+        var objConfig = {
+        zoom: 17,
+        center: gLatLon
+                                                                                 }
+        var gMapa = new google.maps.Map(divMapa, objConfig)                                                                         
+                                                                                 
+    }
 
 </html>
