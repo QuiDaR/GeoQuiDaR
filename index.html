@@ -1,70 +1,54 @@
 <!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuiDaR tu ubicación actual</title>
-    <script>
-        /**@type{HTMLElement}*/
-        var posElt;
-        /**@type {HTMLElement}*/
-        var PosLinkElt;
-
-        Window.addEventListener('load', function(){
-            posElt = document.getElementById('Pos');
-            PosLinkElt = document.querySelector('#PosLink > a');
-
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(geoposOK,geoposKO);
-            }
-            else{
-            }
+<html lang="es-419">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge;chrome=1" />
+        <meta name="description" content="Localización para usuario de QuiDaR" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="web_author" content="Comunidad QuiDaR" />
+        <title>Localización ususario en Riesgo QuiDaR</title>
+        <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            $('#ubicame').click(iniciar_geolocalizacion);
         });
 
-        ** @param (GeolocationPosition} pos */
-                function geoposOK(pos) {
-          Obtenemos Latitud y longitud
-            pos.coords.accuracy;
-            var lat = pos.coords.latitude;
-            var long = pos.coords.longitude;
-            Mostramos la posicion
-            posElt.textContent=$(lat), $(long);
-            generamos enlace a la posicion
-            PosLinkElt.href = http/maps.google.com/?q=$(lat), $(long);
-            PosLinkElt.textContent ='Mostrar tu posición en un mapa';
-        
-        /** @param {GeoLocationPositionError} err */
-        function geoposKO(err){
-                console.warn(err.message);
-                let msg;
-                switch(err.code) {
-                        case err.PERMISSION_DENIED: 
-                            msg ="No nos has dado permiso para obtener tu posición";
-                            break;
-                        case err.POSITION_UNAVAILABLE: 
-                            msg ="Tu posición actual no está disponible";
-                            break;
-                        case err.TIMEOUT:
-                            msg ="No se ha podido obtener tu posición en un tiempo prudencial";
-                            break;
-                        default:
-                            msg ="Error desconocido";
-                            break;
-                }
-                posElt.textContent = msg;
-                }
-            } 
-            
-        
-</script>
+        function iniciar_geolocalizacion() {
+            navigator.geolocation.getCurrentPosition(geo_consulta, manejo_errores);
+        }
 
-        </head>
-<body>
-    <div style="width: 750px; margin: 2em auto;">
-    <h1>HOLA! 
-        CONFIRMA TU UBICACIÓN</h1>
-    <p>Tu posicion es:<span id="Pos">Desconocida</span></p>
-    <p id="PosLink"><a target="_blank"></a></p>
-    </div>
-</body>
+        function manejo_errores(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED: alert("El usurio no compartió su ubicación geográfica");
+                break;
+                case error.POSITION_UNAVAILABLE: alert("No se pudo detectar la posición geográfica actual");
+                break;
+                case error.TIMEOUT: alert("Se ha agotado el tiempo de espera al consultar posición geográfica");
+                break;
+                default: alert("Error desconocido");
+                break;
+            }
+        }
+
+        function geo_consulta(posicion) {
+            var img_url = 'http://maps.google.com/maps/api/staticmap?sensor=false&center=' + posicion.coords.latitude + "," + posicion.coords.longitude + '&zoom=14&size=600x500&markers=color:blue|label:s|' + posicion.coords.latitude + ',' + posicion.coords.longitude;
+            $('#mapa').attr('src', img_url);
+        } 
+
+        </script>
+
+        <style type="text/css">
+        button {
+            width: 200px;
+            height: 50px;
+            display: block;
+        }
+
+        </style>
+    </head>
+    <body>
+
+        <button id="ubicame">Ubícame</button>
+        <img id="mapa" />
+    </body>
 </html>
