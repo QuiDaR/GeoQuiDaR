@@ -21,17 +21,17 @@
             }
         });
 
-        /** @param (GeolocationPosition} pos */
+        ** @param (GeolocationPosition} pos */
                 function geoposOK(pos) {
-            //Obtenemos Latitud y longitud
+          Obtenemos Latitud y longitud
             pos.coords.accuracy;
-            var lat=pos.coords.latitude;
-            var long=pos.coords.longitude;
-            //Mostramos la posicion
+            var lat = pos.coords.latitude;
+            var long = pos.coords.longitude;
+            Mostramos la posicion
             posElt.textContent=$(lat), $(long);
-            //generamos enlace a la posicion
-            PosLinkElt.href=https//maps.google.com/?q=$(lat), $(long);
-            PosLinkElt.textContent='Mostrar tu posición en un mapa';
+            generamos enlace a la posicion
+            PosLinkElt.href = http//maps.google.com/?q=$(lat), $(long);
+            PosLinkElt.textContent ='Mostrar tu posición en un mapa';
         
         /** @param {GeoLocationPositionError} err */
         function geoposKO(err){
