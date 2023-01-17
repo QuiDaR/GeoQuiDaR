@@ -30,7 +30,7 @@
             //Mostramos la posicion
             posElt.textContent=$(lat), $(long);
             //generamos enlace a la posicion
-            PosLinkElt.href=https//maps.google.com/?q=${lat},${long};
+            PosLinkElt.href=https//maps.google.com/?q=$(lat), $(long);
             PosLinkElt.textContent='Mostrar tu posición en un mapa';
         
         /** @param {GeoLocationPositionError} err */
