@@ -1,30 +1,70 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>CodePen - Geolocalización HTML5: Mostrar posición en Google maps</title>
-  <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QuiDaR tu ubicación actual</title>
+    <script>
+        /**@type{HTMLElement}*/
+        var posElt;
+        /**@type {HTMLElement}*/
+        var PosLinkElt;
 
-</head>
+        Window.addEventListener('load', function(){
+            posElt = document.getElementById('Pos');
+            PosLinkElt = document.querySelector('#PosLink > a');
+
+           // if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(geoposOK,geoposKO);
+           // }
+           // else{
+           // }
+        });
+
+        /** @param (GeolocationPosition} pos */
+                function geoposOK(pos) {
+            //Obtenemos Latitud y longitud
+            pos.coords.accuracy;
+            var lat=pos.coords.latitude;
+            var long=pos.coords.longitude;
+            //Mostramos la posicion
+            posElt.textContent=$(lat), $(long);
+            //generamos enlace a la posicion
+            PosLinkElt.href=https//maps.google.com/?q=${lat},${long};
+            PosLinkElt.textContent='Mostrar tu posición en un mapa';
+        
+        /** @param {GeoLocationPositionError} err */
+        function geoposKO(err){
+                console.warn(err.message);
+                let msg;
+                switch(err.code) {
+                        case err.PERMISSION_DENIED: 
+                            msg ="No nos has dado permiso para obtener tu posición";
+                            break;
+                        case err.POSITION_UNAVAILABLE: 
+                            msg ="Tu posición actual no está disponible";
+                            break;
+                        case err.TIMEOUT:
+                            msg ="No se ha podido obtener tu posición en un tiempo prudencial";
+                            break;
+                        default:
+                            msg ="Error desconocido";
+                            break;
+                }
+                posElt.textContent = msg;
+                }
+            } 
+            
+        
+</script>
+
+        </head>
 <body>
-<!-- partial:index.partial.html -->
-<html>
-<head>
-	<meta charset="UTF-8">
-	<title>Ejemplo Geolocalización</title>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.1.min.js"></script>
-	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=true"></script>
-	<link rel="stylesheet" type="text/css" href="css/estilo.css">
-</head>
-<body>
-
-	<article id="mapa">
- 	</article>
- 	<input type="button" id="parar" value="Parar" onclick="detener();"/>
-</body>
-</html>
-<!-- partial -->
-  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script><script  src="./script.js"></script>
-
+    <div style="width: 750px; margin: 2em auto;">
+    <h1>HOLA! 
+        CONFIRMA TU UBICACIÓN</h1>
+    <p>Tu posicion es:<span id="Pos">Desconocida</span></p>
+    <p id="PosLink"><a target="_blank"></a></p>
+    </div>
 </body>
 </html>
